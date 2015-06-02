@@ -15,6 +15,8 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
+    puts "----------"
+    puts "0 - Demolish all entries"
     print "Enter your selection: "
     selection = gets.to_i
 
@@ -38,6 +40,10 @@ class MenuController
     when 5
       puts "Goodbye!"
       exit(0)
+    when 0
+      system "clear"
+      demolish_all_entries
+      main_menu
     else
       system "clear"
       puts "Sorry, that is not a valid input"
@@ -179,4 +185,19 @@ class MenuController
     puts entry
   end
 
+  def demolish_all_entries
+
+    puts "***Are you absolutely sure? Type 'yes' to confirm.***"
+    selection = gets.chomp
+
+    if selection == 'yes'
+      while @address_book.entries.size > 0
+        delete_entry(@address_book.entries[0])
+      end
+      puts "All entries deleted"
+    else
+      puts "Demolish canceled"
+      main_menu
+    end
+  end
 end
